@@ -6,3 +6,20 @@
 Задача 2:Найдите производителей принтеров. Вывести: maker
 
 Решение: SELECT maker FROM Product WHERE type='Printer' GROUP BY maker
+
+
+Задача 3: Найдите номер модели, объем памяти и размеры экранов ПК-блокнотов, цена которых превышает 1000 дол.
+
+Решение: SELECT model, ram, screen FROM Laptop WHERE price > 1000
+
+
+Задача 4: Найдите все записи таблицы Printer для цветных принтеров.
+
+Решение: SELECT * FROM Printer WHERE color='y'
+
+
+Задача 5: Найдите номер модели, скорость и размер жесткого диска ПК, имеющих 12x или 24x CD и цену менее 600 дол.
+
+Решение: SELECT model, speed, hd FROM PC WHERE price<600 AND (cd='12x' OR cd='24x')
+
+
