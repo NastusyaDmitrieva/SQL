@@ -78,3 +78,31 @@ JOIN PC ON p.model = PC.model WHERE PC.speed >=450
 Решение: SELECT AVG(speed) FROM PC JOIN Product p ON p.model = PC.model WHERE maker='A'
 
 
+Задача 14: Найдите класс, имя и страну для кораблей из таблицы Ships, имеющих не менее 10 орудий.
+ 
+Решение: SELECT  c.class, s.name, c.country FROM Ships s 
+JOIN Classes c ON c.class = s.class WHERE c.numGuns > = 10
+
+
+Задача 15: Найдите размеры жестких дисков, совпадающих у двух и более PC. Вывести: HD
+
+Решение: SELECT HD FROM PC GROUP BY HD HAVING COUNT(model)>=2
+
+
+
+Задача 16: Найдите пары моделей PC, имеющих одинаковые скорость и RAM. В результате каждая пара указывается только один раз, т.е. (i,j), но не (j,i), Порядок вывода: модель с большим номером, модель с меньшим номером, скорость и RAM.
+
+Решение: SELECT DISTINCT p1.model, p2.model, p1.speed, p1.ram FROM PC p1, PC p2
+ WHERE p1.speed = p2.speed AND p1.ram = p2.ram AND p1.model > p2.model
+
+
+
+Задача 17: Найдите модели ПК-блокнотов, скорость которых меньше скорости каждого из ПК.
+Вывести: type, model, speed
+
+Решение: SELECT DISTINCT p.type, p.model, l.speed FROM Laptop l 
+JOIN Product p ON l.model = p.model WHERE l.speed < (SELECT MIN(speed) FROM PC)
+
+
+
+
