@@ -104,5 +104,52 @@ JOIN Classes c ON c.class = s.class WHERE c.numGuns > = 10
 JOIN Product p ON l.model = p.model WHERE l.speed < (SELECT MIN(speed) FROM PC)
 
 
+Задача 18: Найдите производителей самых дешевых цветных принтеров. Вывести: maker, price
+
+Решение: SELECT DISTINCT product.maker, printer.price
+FROM product, printer
+WHERE product.model = printer.model
+AND printer.color = 'y'
+AND printer.price = (
+SELECT MIN(price) FROM printer
+WHERE printer.color = 'y'
+)
 
 
+Задача 19:Для каждого производителя, имеющего модели в таблице Laptop, найдите средний размер экрана выпускаемых им ПК-блокнотов.
+Вывести: maker, средний размер экрана.
+
+Решение: SELECT p.maker, AVG(l.screen) FROM Product p JOIN Laptop l ON p.model = l.model
+Group by p.maker
+
+Задача 19:Найдите производителей, выпускающих по меньшей мере три различных модели ПК. Вывести: Maker, число моделей ПК.
+
+Решение:SELECT maker, COUNT(model) FROM Product 
+WHERE type='PC'
+Group by maker 
+HAVING COUNT(model) >=3
+
+
+Задача 20:Найдите максимальную цену ПК, выпускаемых каждым производителем, у которого есть модели в таблице PC.
+Вывести: maker, максимальная цена.
+
+Решение:SELECT p.maker, MAX(PC.price) FROM Product p JOIN PC ON p.model = PC.model 
+GROUP BY p.maker
+
+
+Задача 21: SELECT p.maker, MAX(PC.price) FROM Product p JOIN PC ON p.model = PC.model 
+GROUP BY p.maker
+
+Решение:Найдите максимальную цену ПК, выпускаемых каждым производителем, у которого есть модели в таблице PC.
+Вывести: maker, максимальная цена.
+
+Задача 22:Для каждого значения скорости ПК, превышающего 600 МГц, определите среднюю цену ПК с такой же скоростью. Вывести: speed, средняя цена.
+
+Решение:SELECT speed, AVG(price) FROM PC
+WHERE speed > 600
+GROUP BY speed
+
+
+Задача 23:
+
+Решение:
