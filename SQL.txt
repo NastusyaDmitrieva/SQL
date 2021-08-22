@@ -90,7 +90,9 @@ JOIN Classes c ON c.class = s.class WHERE c.numGuns > = 10
 
 
 
-Задача 16: Найдите пары моделей PC, имеющих одинаковые скорость и RAM. В результате каждая пара указывается только один раз, т.е. (i,j), но не (j,i), Порядок вывода: модель с большим номером, модель с меньшим номером, скорость и RAM.
+Задача 16: Найдите пары моделей PC, имеющих одинаковые скорость и RAM.
+В результате каждая пара указывается только один раз, т.е. (i,j), но не (j,i), 
+Порядок вывода: модель с большим номером, модель с меньшим номером, скорость и RAM.
 
 Решение: SELECT DISTINCT p1.model, p2.model, p1.speed, p1.ram FROM PC p1, PC p2
  WHERE p1.speed = p2.speed AND p1.ram = p2.ram AND p1.model > p2.model
@@ -104,19 +106,8 @@ JOIN Classes c ON c.class = s.class WHERE c.numGuns > = 10
 JOIN Product p ON l.model = p.model WHERE l.speed < (SELECT MIN(speed) FROM PC)
 
 
-Задача 18: Найдите производителей самых дешевых цветных принтеров. Вывести: maker, price
 
-Решение: SELECT DISTINCT product.maker, printer.price
-FROM product, printer
-WHERE product.model = printer.model
-AND printer.color = 'y'
-AND printer.price = (
-SELECT MIN(price) FROM printer
-WHERE printer.color = 'y'
-)
-
-
-Задача 19:Для каждого производителя, имеющего модели в таблице Laptop, найдите средний размер экрана выпускаемых им ПК-блокнотов.
+Задача 18:Для каждого производителя, имеющего модели в таблице Laptop, найдите средний размер экрана выпускаемых им ПК-блокнотов.
 Вывести: maker, средний размер экрана.
 
 Решение: SELECT p.maker, AVG(l.screen) FROM Product p JOIN Laptop l ON p.model = l.model
@@ -137,11 +128,13 @@ HAVING COUNT(model) >=3
 GROUP BY p.maker
 
 
-Задача 21: SELECT p.maker, MAX(PC.price) FROM Product p JOIN PC ON p.model = PC.model 
+Задача 21:Найдите максимальную цену ПК, выпускаемых каждым производителем, у которого есть модели в таблице PC.
+Вывести: maker, максимальная цена.
+
+Решение: SELECT p.maker, MAX(PC.price) FROM Product p JOIN PC ON p.model = PC.model 
 GROUP BY p.maker
 
-Решение:Найдите максимальную цену ПК, выпускаемых каждым производителем, у которого есть модели в таблице PC.
-Вывести: maker, максимальная цена.
+
 
 Задача 22:Для каждого значения скорости ПК, превышающего 600 МГц, определите среднюю цену ПК с такой же скоростью. Вывести: speed, средняя цена.
 
@@ -168,5 +161,6 @@ UNION SELECT model, price FROM Printer) t
 WHERE price = (SELECT MAX(price) FROM (SELECT model, price FROM PC
 UNION SELECT model, price FROM Laptop
 UNION SELECT model, price FROM Printer) t2 )
+
 
 
